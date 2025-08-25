@@ -1,4 +1,4 @@
-# My Digital Garden 🌱
+# My Digital Garden🌱
 A personal knowledge repository & digital garden built with Astro.
 This digital garden serves as a living documentation of thoughts, research, and connections across digital anthropology, tech, and AI.
 
