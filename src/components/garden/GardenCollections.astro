@@ -1,0 +1,213 @@
+---
+import { getCollection } from "astro:content";
+
+const { topics = [], counts = {} } = Astro.props;
+
+let allTopics = topics;
+let topicCounts = counts;
+
+if (topics.length === 0) {
+  const notes = await getCollection("notes");
+  allTopics = [...new Set(notes.flatMap(note => note.data.topics || []))].sort();
+  
+  allTopics.forEach((topic: string) => {
+    topicCounts[topic] = notes.filter(note => 
+      note.data.topics && note.data.topics.includes(topic)
+    ).length;
+  });
+}
+
+const displayTopics = [
+  { name: "AI", count: topicCounts["AI"] || 1 },
+  { name: "Digital Anthropology", count: topicCounts["Digital Anthropology"] || 3 },
+  { name: "Tech", count: topicCounts["Tech"] || 2 }
+];
+---
+
+<div class="garden-collections">
+  <div class="collections-container">
+    <div class="row main-row">
+      <a href="/stream" class="cell main-cell">
+        <h3 class="item-title">STREAM</h3>
+        <p class="item-desc">List of the media or people who have influenced me.</p>
+      </a>
+      
+      <a href="/now" class="cell main-cell last-main">
+        <h3 class="item-title">NOW</h3>
+        <p class="item-desc">Subjects I find interesting & want to learn more about.</p>
+      </a>
+    </div>
+    
+    <div class="row topics-row">
+      {displayTopics.map((topic, index) => (
+        <div class={`cell topic-filter ${index === displayTopics.length - 1 ? 'last-topic' : ''}`} data-topic={topic.name}>
+          <div class="topic-link">
+            <h3 class="item-title">{topic.name}</h3>
+            <p class="item-desc">{topic.count} {topic.count === 1 ? 'Entry' : 'Entries'}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .garden-collections {
+    margin-bottom: 3rem;
+    padding: 0rem 0rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .collections-container {
+    border: 1px solid #E8DBCF;
+    width: 100%;
+    background-color: #FFF8F4;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  .row {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .cell {
+    padding: 1rem;
+    transition: background-color 0.2s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-bottom: 1px solid #E8DBCF;
+    border-right: 1px solid #E8DBCF;
+  }
+
+  .main-cell {
+    width: 50%;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .main-cell.last-main {
+    border-right: none;
+  }
+
+  .topic-filter {
+    width: 33.333%;
+    cursor: pointer;
+  }
+  
+  .topic-filter.last-topic {
+    border-right: none;
+  }
+  
+  .topic-filter:hover {
+    background-color: #FFF2EB;
+  }
+  
+  .topic-filter.active {
+    background-color: #FFF2EB;
+  }
+
+  .topics-row .cell {
+    border-bottom: none;
+  }
+
+  .item-title {
+    font-size: 0.88rem;
+  }
+  
+  .item-desc {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  @media (max-width: 768px) {
+    .garden-collections {
+      padding: 0;
+    }
+    
+    .row {
+      flex-direction: column;
+    }
+    
+    .cell {
+      width: 100% !important;
+      border-right: none !important;
+      padding: 1.25rem;
+      margin-right: 0;
+    }
+    
+    .topics-row .cell:last-child {
+      border-bottom: none;
+    }
+    
+    .item-desc {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      -webkit-line-clamp: 2;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cell {
+      padding: 1rem;
+    }
+    
+    .item-desc {
+      font-size: 0.85rem;
+      line-height: 1.3;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const topicFilters = document.querySelectorAll('.topic-filter');
+    const noteCards = document.querySelectorAll('.note-card');
+    
+    let currentFilter = 'all';
+    
+    topicFilters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        const selectedTopic = filter.getAttribute('data-topic') || '';
+        
+        if (currentFilter === selectedTopic) {
+          currentFilter = 'all';
+          topicFilters.forEach(f => f.classList.remove('active'));
+        } else {
+          topicFilters.forEach(f => f.classList.remove('active'));
+          
+          filter.classList.add('active');
+          currentFilter = selectedTopic;
+        }
+        
+        filterNotes(currentFilter);
+      });
+    });
+    
+    function filterNotes(topic: string) {
+      noteCards.forEach(card => {
+        const cardTopics = card.getAttribute('data-topics')?.split(',') || [];
+        
+        if (topic === 'all' || cardTopics.includes(topic)) {
+          (card as HTMLElement).style.display = 'block';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    }
+  });
+</script>

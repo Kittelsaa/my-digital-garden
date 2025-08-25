@@ -1,0 +1,19 @@
+---
+const { content, processed = false } = Astro.props;
+
+function processWikiLinks(text: string | undefined) {
+  if (!text || processed) return text || '';
+  
+  return text.replace(
+    /\[\[(.*?)(?:\|(.*?))?\]\]/g, 
+    (_, target, label = target) => {
+      const slug = target.toLowerCase().replace(/ /g, '-');
+      return `<a href="/notes/${slug}" class="wiki-link">${label}</a>`;
+    }
+  );
+}
+
+const processedContent = processWikiLinks(content);
+---
+
+<div set:html={processedContent} />

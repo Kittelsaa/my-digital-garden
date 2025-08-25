@@ -1,0 +1,82 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  width?: string;
+  framed?: boolean;
+  showalt?: boolean;
+  margin?: string;
+}
+
+const { 
+  src, 
+  alt = "", 
+  width = "100%", 
+  framed = false,
+  showalt = false,
+  margin = "2rem auto"
+} = Astro.props;
+---
+
+<figure class:list={["remote-image", { framed }]} style={`margin: ${margin};`}>
+  <div class="image-container">
+    <img
+      src={src}
+      alt={alt}
+      style={`max-width: ${width};`}
+      loading="lazy"
+    />
+  </div>
+  {showalt && alt && <figcaption>{alt}</figcaption>}
+</figure>
+
+<style>
+  .remote-image {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .image-container {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .remote-image.framed img {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  figcaption {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+    text-align: center;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .remote-image {
+      margin: 1rem 0 !important;
+      width: 100% !important;
+    }
+    
+    .image-container {
+      width: 100%;
+    }
+    
+    img {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+    }
+  }
+</style>

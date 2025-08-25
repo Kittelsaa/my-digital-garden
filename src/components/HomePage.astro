@@ -1,0 +1,382 @@
+---
+import HomeButton from './HomeButton.astro';
+---
+
+<section class="home-section">
+  <div class="container">
+    <div class="intro-section">
+      <h1 style="font-family: 'Averia Serif Libre', serif; font-weight: 400;" class="main-title">Hello, I'm Kittelsaa</h1>
+      <p class="intro-text">
+        A Software Engineer exploring the human side of the digital world.
+        My digital garden is a living ecosystem of ideas, explorations & essays, from emerging seedlings of thought 
+        to fully grown trees. Every visit reveals something new.
+      </p>
+      <div class="cta-buttons">
+        <HomeButton href="/garden" variant="secondary" >
+          <span style="font-family: 'Averia Serif Libre', serif !important;">Browse The Garden ☘︎</span>
+        </HomeButton>
+        <HomeButton href="/about" variant="primary" class="connect-button">
+          <span style="font-family: 'Averia Serif Libre', serif !important;">Let's Connect ✶</span>
+        </HomeButton>
+      </div>
+    </div>
+    
+    <div class="content-grid">
+      <div class="subsection resources-section">
+        <h2 class="section-title">Resources & Guides</h2>
+        <div class="collections-table">
+          <div class="resources-grid">
+            <div class="collection-item">
+              <h3 class="item-title">Note-Taking Guide</h3>
+              <p class="item-desc">A flexible & practical guide to help transform your note-taking process, leading to more intuitive & creative discoveries.</p>
+              <a href="https://taking-notes-six.vercel.app/" class="view-link">View Guide</a>
+            </div>
+            <div class="collection-item">
+              <h3 class="item-title">Tech Literacy for Everyday People   </h3>
+              <p class="item-desc">What you need to know about technology to feel confident and capable in the digital world.</p>
+              <a href="#" class="view-link">Coming soon...</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="subsection subscribe-section">
+        <h2 class="section-title-description">Stay Updated</h2>
+        <script async data-uid="b372a7efec" src="https://kttlsaa.kit.com/b372a7efec/index.js"></script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 0;
+  }
+
+  .intro-section {
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .main-title {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .intro-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: var(--color-text-muted, #666);
+  }
+  
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .content-grid {
+    display: grid;
+    grid-template-columns: 70% 1fr;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .resources-section {
+    margin-bottom: 0rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    color: var(--color-text-muted, #666);
+    font-family: 'Averia Serif Libre', serif;
+  }
+  
+  .collections-table {
+    border: 1px solid #E8DBCF;
+    background-color: #FFF8F4;
+    overflow: hidden;
+  }
+  
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+  
+  .collection-item {
+    padding: 1.5rem;
+    background-color: #FFF8F4;
+    transition: all 0.2s ease;
+    border: 0;
+    border-right: 1px solid #E8DBCF;
+    border-bottom: 1px solid #E8DBCF;
+    position: relative;
+  }
+  
+  .collection-item:nth-child(2n) {
+    border-right: none;
+  }
+  
+  .collection-item:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+  
+  .item-title {
+    margin-bottom: 0.75rem;
+    font-weight: normal;
+    font-family: 'Averia Serif Libre', serif;
+  }
+  
+  .item-desc {
+    color: var(--color-text-muted, #666);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .view-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-accent, #FF9B5A);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .view-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Subscribe Section */
+  .subscribe-section {
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 1.7rem;
+    line-height: 1.2;
+  }
+  .section-title-description{
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: -2rem;
+  }
+  
+  .subscribe-section span{
+    font-size: 0.75rem;
+    margin:0%;
+    padding:0%;
+    color: #666;
+    line-height: 1.5;
+  }
+  .subscribe-section * {
+    box-sizing: border-box;
+  }
+  .subscribe-section [data-uid="b372a7efec"],
+  .subscribe-section [data-uid="b372a7efec"] * {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .subscribe-section .formkit-form,
+  .subscribe-section .formkit-fields,
+  .subscribe-section .formkit-field {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .subscribe-section .formkit-form > div,
+  .subscribe-section .formkit-form div[style*="padding"] {
+    padding: 0 !important;
+  }
+  
+  .subscribe-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 0rem 0rem 0rem;
+    border-radius: 0;
+  }
+  
+  .subscribe-form input {
+    font-size: 0.95rem;
+    width: 100%;
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0;
+    background: #f8f8f8;
+    text-align: left;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+    height: auto;
+    box-sizing: border-box;
+  }
+
+  .subscribe-form input::placeholder {
+    color: #999;
+    opacity: 1;
+  }
+  
+  .subscribe-button {
+    background-color: #FF9B5A;
+    color: black;
+    border: none;
+    border-radius: 0;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Averia Serif Libre', serif;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+  }
+  
+
+  @media (max-width: 1024px) {
+    .main-title {
+      font-size: 2.5rem;
+    }
+    
+    .intro-text {
+      font-size: 1.1rem;
+    }
+    
+    .section-title {
+      font-size: 1.75rem;
+    }
+
+    .section-title-description{
+      font-size: 1.6rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 2rem 0;
+    }
+    
+    .intro-section {
+      margin-bottom: 3rem;
+    }
+    
+    .main-title {
+      font-size: 2.25rem;
+    }
+    
+    .intro-text {
+      font-size: 1rem;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .content-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .resources-grid {
+      grid-template-columns: 1fr;
+    }
+    
+
+    .collection-item {
+      border-right: none !important;
+      border-bottom: 1px solid #E8DBCF !important;
+    }
+    
+    .collection-item:last-child {
+      border-bottom: none !important;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .subscribe-section {
+      padding-top: 2rem;
+    }
+    .section-title-description{
+      font-size: 2rem;
+      text-align: center;
+    }
+
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      width: 80%;
+      padding: 0rem 0;
+    }
+
+    .intro-section {
+      margin-top: 4rem;
+    }
+
+    .content-grid {
+      margin-bottom: 5rem;
+      gap: 0rem;
+    }
+    
+    .main-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .intro-text {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .collection-item {
+      padding: 1.25rem;
+    }
+    
+    .item-title {
+      font-size: 1.1rem;
+    }
+    
+    .item-desc {
+      font-size: 0.9rem;
+    }
+  }
+
+  :global(.home-button),
+  :global(.home-button .button-text) {
+    font-family: 'Averia Serif Libre', serif !important;
+  }
+  
+  @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+</style>
+
+<style is:global>
+  .home-button span,
+  .button-text,
+  .home-button .button-text {
+    font-family: 'Averia Serif Libre', serif !important;
+  }
+</style>

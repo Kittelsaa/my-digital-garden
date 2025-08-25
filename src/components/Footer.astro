@@ -1,0 +1,169 @@
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="contact-section">
+        <div class="email-section">
+          <span class="email-icon">✉</span>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kttlsaa@gmail.com" class="email-link">kttlsaa@gmail.com</a>
+        </div>
+        <p class="response-note">Drop me a line to connect, create, or collaborate ✶</p>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>Copyright © 2025 KTTLSAA. All rights reserved</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    padding: 4rem 0 1rem; 
+    border-top: 1px solid #E8DBCF;
+    background-color: #FFF8F4;
+    margin-top: auto; 
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-m, 1.5rem);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-bottom: 2rem; 
+  }
+
+  .contact-section {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-text {
+    font-size: 1.1rem;
+    color: var(--color-text, #1f2937);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .response-note {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  .email-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .email-icon {
+    font-size: 1.2rem;
+    color: #6b7280;
+  }
+
+  .email-link {
+    font-size: 1.05rem;
+    color: var(--color-text, #1f2937);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+    border-bottom: 1px dotted #6b7280;
+  }
+
+  .email-link.email-link:hover {
+    border-bottom: 1px solid #6b7280;
+  }
+
+
+  .copyright {
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .copyright p {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #9ca3af;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    footer {
+      padding: 2rem 0 0.75rem; 
+      margin-top: auto;
+    }
+
+    .footer-content {
+      gap: 1.5rem; 
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      gap: 1.25rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+    }
+
+    .contact-text {
+      font-size: 1rem;
+    }
+
+    .response-note {
+      font-size: 0.85rem;
+    }
+
+    .email-link {
+      font-size: 1rem;
+    }
+
+    .copyright {
+      padding-top: 1rem;
+      padding-bottom: 0.5rem; 
+    }
+
+    .copyright p {
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .social-links {
+      gap: 1rem;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+    }
+
+    .email-section {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .contact-text {
+      font-size: 0.95rem;
+    }
+
+    .email-link {
+      font-size: 0.95rem;
+    }
+  }
+</style>

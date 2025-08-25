@@ -1,0 +1,65 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import NoteLayout from '../../layouts/NoteLayout.astro';
+import { findBacklinks } from '../../utils/noteUtils';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  
+  return notes.map(note => {
+    const slug = note.id ? note.id.split('/').pop()?.replace(/\.(md|mdx)$/, '') : undefined;
+    
+    if (!slug) {
+      console.warn(`Note with title "${note.data.title}" has no slug`);
+      return null;
+    }
+    
+    return {
+      params: { slug },
+      props: { note }
+    };
+  }).filter(Boolean);
+}
+
+const { slug } = Astro.params;
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+const { note } = Astro.props;
+
+let Content;
+try {
+  const rendered = await render(note);
+  Content = rendered.Content;
+} catch (error) {
+  console.error(`Error rendering note ${slug}:`, error);
+  return Astro.redirect('/500?error=rendering-failed');
+}
+
+const backlinks = await findBacklinks(note.id, 1) || [];
+---
+
+<NoteLayout frontmatter={note.data} backlinks={backlinks}>
+  <div class="note-main-content">
+    <Content />
+  </div>
+  
+  <div class="note-connections">
+  </div>
+</NoteLayout>
+
+<style>
+  .note-main-content {
+    margin-bottom: var(--space-xl);
+  }
+  
+  .note-connections {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--color-border);
+  }
+</style>
+
+

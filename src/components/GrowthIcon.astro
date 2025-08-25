@@ -1,0 +1,59 @@
+---
+const { growthStage, showEmoji = false } = Astro.props;
+
+const growthEmojis = {
+  'seedling': '🌱',
+  'budding': '🪴',
+  'evergreen': '🌳'
+} as const;
+
+type GrowthStage = keyof typeof growthEmojis;
+
+const emoji = growthEmojis[(growthStage?.toLowerCase() as GrowthStage) ?? 'seedling'] || '🌱';
+---
+
+{showEmoji ? (
+  <span class="growth-emoji" title={growthStage}>{emoji}</span>
+) : (
+  <span class="growth-icon" data-stage={growthStage?.toLowerCase()}>
+    <span class="sr-only">{growthStage}</span>
+  </span>
+)}
+
+<style>
+  .growth-emoji {
+    font-size: 0.875rem;
+    line-height: 1;
+  }
+  
+  .growth-icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  
+  .growth-icon[data-stage="seedling"] {
+    background-color: #84cc16;
+  }
+  
+  .growth-icon[data-stage="budding"] {
+    background-color: #22c55e;
+  }
+  
+  .growth-icon[data-stage="evergreen"] {
+    background-color: #059669;
+  }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>

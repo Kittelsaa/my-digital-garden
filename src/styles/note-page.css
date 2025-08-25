@@ -1,0 +1,305 @@
+/* High-specificity selectors for note page styling */
+html body .note-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem 1.5rem;
+  color: #333;
+  font-family: "Inter", sans-serif;
+  background-color: transparent !important;
+}
+
+html body .note-header {
+  margin-bottom: 2.5rem;
+}
+
+html body .note-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+html body .back-link {
+  color: #6b7280 !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.05em;
+}
+
+html body .back-link:hover {
+  color: #4b5563 !important; 
+  text-decoration: none;
+}
+
+html body .growth-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+  font-family: "Georgia", "Times New Roman", Times, serif;
+  text-transform: uppercase;
+}
+
+html body .note-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #1f2937;
+  font-weight: 700;
+  font-family: "Averia Serif Libre", serif;
+}
+
+html body .note-description {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  color: #6b7280;
+  font-family: "Inter", sans-serif;
+}
+
+html body .note-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+html body .note-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+html body .topic-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #ff8c00 !important; 
+  font-size: 0.75rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  cursor: default;
+  text-decoration: none;
+  border-radius: 0 !important;
+}
+
+html body .topic-tag:hover {
+  background-color: #f9fafb;
+}
+
+html body .note-dates {
+  text-align: right;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html body .note-content {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 0rem;
+}
+
+html body .note-content h2 {
+  font-size: 1.75rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif;
+}
+
+html body .note-content h3 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif;
+}
+
+html body .note-content p {
+  margin-bottom: 1.5rem;
+}
+
+html body .note-content p:first-of-type::first-letter {
+  font-size: inherit;
+  float: none;
+  line-height: inherit;
+  margin-right: 0;
+  font-weight: normal;
+  color: inherit;
+}
+
+html body .note-content a {
+  color: #1f2937;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+html body .note-content a:hover {
+  color: #ff8c00 !important; 
+}
+
+html body .note-content a.wiki-link,
+html body .note-content a[href^="/notes/"],
+html body .note-content a[href*="bi-directional-links"],
+html body .note-content a[href*="non-linear-learning"] {
+  color: #1f2937 !important; 
+  text-decoration: none;
+  border-bottom: 1px dotted #1f2937;
+  transition: all 0.2s ease;
+}
+
+html body .note-content a.wiki-link:hover,
+html body .note-content a[href^="/notes/"]:hover,
+html body .note-content a[href*="bi-directional-links"]:hover,
+html body .note-content a[href*="non-linear-learning"]:hover {
+  color: #ff8c00 !important; 
+  border-bottom: 1px solid #ff8c00 !important;
+}
+
+html body .note-content mark,
+html body .note-content .highlight {
+  background-color: transparent !important;
+  color: #ff8c00 !important; 
+  font-weight: 500;
+}
+
+html body .note-content ul, 
+html body .note-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+html body .note-content li {
+  margin-bottom: 0.5rem;
+}
+
+html body .note-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+}
+
+html body .note-footer {
+  margin: 0rem;
+  padding: 0rem;
+}
+
+@media (max-width: 768px) {
+  html body .note-container {
+    padding: 2rem;
+  }
+  
+  html body .note-title {
+    font-size: 2rem;
+  }
+  
+  html body .note-meta {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  html body .note-dates {
+    text-align: right;
+  }
+}
+
+@media (max-width: 480px) {
+  html body .note-container {
+    padding: 2rem;
+  }
+  
+  html body .note-title {
+    font-size: 1.85rem;
+    padding-top: 1rem;
+  }
+  
+  html body .note-content {
+    font-size: 1rem;
+  }
+  html body .note-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  html body .topic-tag {
+    margin: 0rem;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+}
+
+@media (max-width: 768px) {
+  html body .note-content p:first-of-type::first-letter {
+    font-size: inherit;
+    float: none;
+    line-height: inherit;
+    margin-right: 0;
+    font-weight: normal;
+    color: inherit;
+  }
+}
+
+@media (max-width: 768px) {
+  html body .note-content {
+    width: 100%;
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
+  
+  html body .note-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+  }
+  
+  html body .note-content pre,
+  html body .note-content code,
+  html body .note-content blockquote {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  html body .note-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  html body .note-content span[class^="tag-"],
+  html body .note-content a[class^="tag-"],
+  html body .note-content .hashtag,
+  html body .note-content [class*="hashtag"] {
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-word;
+    margin-bottom: 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html body .note-container {
+    padding: 1.5rem;
+  }
+  
+  html body .note-content {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  html body .note-content p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
+

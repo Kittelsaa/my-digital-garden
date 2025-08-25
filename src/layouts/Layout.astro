@@ -1,0 +1,82 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FontLoader from "../components/FontLoader.astro";
+import "../styles/fonts.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = "kttlsaa - A digital garden of thoughts, ideas, and explorations",
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = Astro.url;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/f1.png" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <link rel="canonical" href={canonicalURL} />
+    
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <meta name="theme-color" content="#1f2937" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <FontLoader />
+  </head>
+  <body>
+    <div class="layout-wrapper">
+      <Header />
+      <main class="main-content">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    height: 100%;
+  }
+  
+  .layout-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .main-content {
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3, h4, h5 {
+    font-family: 'Averia Serif Libre', serif !important;
+  }
+</style>

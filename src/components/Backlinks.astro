@@ -1,0 +1,106 @@
+---
+// Backlinks - Notes
+interface Backlink {
+  title: string;
+  slug: string;
+  growthStage: 'seedling' | 'budding' | 'evergreen';
+  description?: string;
+}
+
+interface Props {
+  backlinks: Backlink[];
+}
+
+const { backlinks } = Astro.props;
+
+const growthEmojis = {
+  seedling: "🌱",
+  budding: "🪴",
+  evergreen: "🌳"
+};
+---
+
+<div class="connected-notes">
+  <h3>Connected Notes</h3>
+  
+  {backlinks.length === 0 ? (
+    <p class="no-links">No other notes link to this one yet.</p>
+  ) : (
+    <ul class="connected-list">
+      {backlinks.map(link => (
+        <li class="connected-item">
+          <a href={`/notes/${link.slug}`} class="connected-link">
+            <span class="growth-icon">
+              {growthEmojis[link.growthStage] || "🌱"}
+            </span>
+            <span class="link-title">{link.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
+<style>
+  .connected-notes {
+    margin-top: 2.5rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-family: "Times New Roman", Times, serif;
+    color: #1f2937;
+  }
+  
+  .connected-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .connected-item {
+    padding: 0.75rem 0;
+    position: relative;
+  }
+  
+  .connected-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #e5e7eb;
+  }
+  
+  .connected-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #1f2937;
+    transition: color 0.2s ease;
+  }
+  
+  .connected-link:hover {
+    color: #ff8c00;
+  }
+  
+  .growth-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+  
+  .link-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+  
+  .no-links {
+    color: #6b7280;
+    font-style: italic;
+    font-size: 0.875rem;
+  }
+</style>

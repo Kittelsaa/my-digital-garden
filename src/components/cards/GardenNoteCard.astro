@@ -1,0 +1,141 @@
+---
+import { formatDate } from "../../utils/dates";
+
+const { note } = Astro.props;
+
+const formattedDate = formatDate(note.data.updated || note.data.startDate);
+
+const growthEmojis = {
+  "seedling": "🌱",
+  "budding": "🪴",
+  "evergreen": "🌳"
+} as const;
+
+type GrowthStage = keyof typeof growthEmojis;
+
+const growthStageKey = (note.data.growthStage?.toLowerCase() ?? "seedling") as GrowthStage;
+const growthEmoji = growthEmojis[growthStageKey] || "🌱";
+
+const noteType = note.data.type || "Note";
+
+const noteSlug = note.slug || note.id.split('/').pop().replace(/\.(md|mdx)$/, '');
+---
+
+<div class="garden-note-card" 
+  data-date={note.data.updated} 
+  data-growth-stage={note.data.growthStage} 
+  data-topics={note.data.topics?.join(',')}
+  data-type={noteType}>
+  <a href={`/notes/${noteSlug}`} class="note-link">
+    <h3 class="title">{note.data.title}</h3>
+    <div class="meta">
+      <div class="growth-stage">{growthEmoji} {note.data.growthStage}</div>
+      <div class="date">{formattedDate}</div>
+    </div>
+  </a>
+</div>
+
+<style>
+  .garden-note-card {
+    margin-bottom: 1rem;
+    width: 100%;
+    overflow: hidden; 
+    border: 1px solid #E8DBCF;
+    padding: 1.25rem;
+    box-sizing: border-box;
+  }
+  
+  .note-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+    font-family: "Times New Roman", Times, serif;
+    color: #1f2937;
+    line-height: 1.3;
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .note-link:hover .title {
+    color: var(--color-accent, #ff8c00);
+  }
+  
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #6b7280;
+    padding-bottom: 0.8rem;
+    flex-wrap: wrap; 
+    gap: 0.5rem;
+  }
+  
+  .growth-stage {
+    color: #6b7280;
+    font-style: italic;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+  }
+  
+  .date {
+    color: #6b7280;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 768px) {
+    .garden-note-card {
+      margin-bottom: 0.75rem;
+      padding: 1rem;
+      margin-right: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .title {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .meta {
+      gap: 0.75rem;
+    }
+    
+    .date {
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .garden-note-card {
+      padding: 0.85rem;
+      margin-right: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .title {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    
+    .meta {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+    
+    .date {
+      font-size: 0.75rem;
+    }
+  }
+</style>

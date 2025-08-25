@@ -1,0 +1,227 @@
+/* Notes page specific styling */
+.note-container {
+  max-width: 720px;
+  margin: 0 auto;
+  color: #333;
+  font-family: "Inter", sans-serif;
+  background-color: #f9f9f7;
+}
+
+.note-header {
+  margin-bottom: 2.5rem;
+}
+
+.note-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  color: #b91c1c;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.back-link:hover {
+  color: #ff8c00;
+  text-decoration: none;
+}
+
+.growth-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+}
+
+.note-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #1f2937;
+  font-weight: 700;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.garden-description {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  color: #6b7280;
+  font-family: "Inter", sans-serif;
+}
+
+.note-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.note-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.topic-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #b91c1c;
+  font-size: 0.75rem;
+  font-family: "Inter", sans-serif;
+  cursor: default; 
+  text-decoration: none;
+  border-radius: 0; 
+}
+
+.topic-tag:hover {
+  background-color: #f9fafb;
+}
+
+.note-dates {
+  text-align: right;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-family: "Inter", sans-serif;
+}
+
+.note-content {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+.note-content h2 {
+  font-size: 1.75rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+  font-weight: 600;
+  font-family: "Averia Serif Libre", serif;
+}
+
+.note-content h3 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+  font-weight: 600;
+  font-family: "Averia Serif Libre", serif;
+}
+
+.note-content p {
+  margin-bottom: 1.5rem;
+}
+
+.note-content p:first-of-type::first-letter {
+  font-size: 3.5rem;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.5rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.note-content a {
+  color: #1f2937;
+  text-decoration: none;
+  border-bottom: 1px solid #1f2937;
+  transition: all 0.2s ease;
+}
+
+.note-content a:hover {
+  color: #f48702;
+  border-bottom: 1px solid #f48702;
+}
+
+.note-content a.wiki-link {
+  color: #ff8c00;
+  text-decoration: none;
+  border-bottom: 1px dotted #ff8c00;
+  transition: all 0.2s ease;
+}
+
+.note-content a.wiki-link:hover {
+  color: #ff6b00; 
+  border-bottom: 1px solid #ff6b00;
+}
+
+.note-content mark,
+.note-content .highlight {
+  background-color: transparent;
+  color: #ff8c00; 
+  font-weight: 500;
+}
+
+.note-content ul, 
+.note-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.note-content li {
+  margin-bottom: 0.5rem;
+}
+
+.note-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+}
+
+.note-footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+@media (max-width: 768px) {
+  .note-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .note-title {
+    font-size: 2rem;
+  }
+  
+  .note-meta {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .note-dates {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .note-container {
+    padding: 1rem 0.75rem;
+  }
+  
+  .note-title {
+    font-size: 1.75rem;
+  }
+  
+  .note-content {
+    font-size: 1rem;
+  }
+  
+  .note-content p:first-of-type::first-letter {
+    font-size: 2.5rem;
+  }
+}
+

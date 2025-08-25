@@ -1,0 +1,399 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import GardenNoteCard from "../components/cards/GardenNoteCard.astro";
+import GardenCollections from "../components/garden/GardenCollections.astro";
+
+let allPosts: Array<{ data: any; [key: string]: any }> = [];
+try {
+  allPosts = await getCollection('notes', ({ data }) => {
+    return !data.draft;
+  });
+  
+  if (allPosts.length > 0) {
+    console.log("First post:", {
+      title: allPosts[0].data.title,
+      slug: allPosts[0].slug,
+      id: allPosts[0].id
+    });
+  } else {
+    console.log("No posts found");
+  }
+} catch (error) {
+  console.error("Error fetching notes collection:", error);
+}
+
+const sortedPosts = allPosts.sort((a, b) => {
+  const dateA = new Date(a.data.updated || a.data.startDate || 0).getTime();
+  const dateB = new Date(b.data.updated || b.data.startDate || 0).getTime();
+  return dateB - dateA;
+});
+
+const allTopics = [...new Set(allPosts.flatMap(post => post.data.topics || []))].sort();
+
+const topicCounts: Record<string, number> = {};
+allTopics.forEach(topic => {
+  topicCounts[topic] = allPosts.filter(post => 
+    post.data.topics && post.data.topics.includes(topic)
+  ).length;
+});
+
+const allGrowthStages = [...new Set(allPosts.map(post => post.data.growthStage))].filter(Boolean).sort();
+---
+
+<Layout title="Digital Garden">
+  <div class="container">
+    <div class="garden-layout">
+      <div class="collections-column">
+        <div class="garden-intro">
+          <h1 class="garden-title">My Digital Garden</h1>
+          <p class="garden-description">
+            This is not a blog, it is where thoughts are cultivated, connected & continuously redefined. Read more about 
+            <a href="/notes/my-digital-garden" class="garden-link">digital gardens here</a>.
+          </p>
+        </div>
+        <div class="section-header">
+          <h2 class="section-title">ONGOING COLLECTIONS</h2>
+        </div>
+        <GardenCollections topics={allTopics} counts={topicCounts} />
+      </div>
+      
+      <div class="notes-column">
+        <div class="section-header">
+          <h2 class="section-title">Entries</h2>
+          <div class="filter-controls">
+            <div class="filter-dropdown">
+              <select id="date-filter" aria-label="Filter by date">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+              </select>
+              <span class="dropdown-arrow">▼</span>
+            </div>
+            <div class="filter-dropdown">
+              <select id="growth-filter" aria-label="Filter by growth stage">
+                <option value="all">All Stages</option>
+                {allGrowthStages.map(stage => (
+                  <option value={stage.toLowerCase()}>{stage}</option>
+                ))}
+              </select>
+              <span class="dropdown-arrow">▼</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="notes-list">
+          {sortedPosts.map(post => (
+            <GardenNoteCard note={post} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem 1.5rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  
+  .garden-intro {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.6rem;
+    width: 100%;
+  }
+  
+  .garden-title {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 1.25rem;
+  }
+  
+  .garden-description {
+    font-size: 0.9rem;
+    color: #6b7280;
+    max-width: 800px;
+    line-height: 1.6;
+    margin: 0 0 1.5rem;
+  }
+  
+  .garden-link {
+    color: #1f2937;
+    text-decoration: none;
+    border-bottom: 1px dotted #1f2937;
+    transition: all 0.2s ease;
+  }
+  
+  .garden-link:hover {
+    color: #ff8c00;
+    border-bottom: 1px solid #ff8c00;
+  }
+  
+  .garden-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 35%) minmax(0, 65%);
+    gap: 5rem;
+    align-items: start;
+    width: 100%;
+  }
+  
+  .collections-column,
+  .notes-column {
+    width: 100%;
+    min-width: 0;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.6rem;
+    padding-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .section-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #7B7B7A;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-sans, 'Inter', sans-serif);
+  }
+  
+  .filter-controls {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .filter-dropdown {
+    position: relative;
+  }
+  
+  .filter-dropdown select {
+    appearance: none;
+    background-color: transparent;
+    border: 1px solid #e5e7eb;
+    padding: 0.4rem 2rem 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-sans, 'Inter', sans-serif);
+    min-width: 120px;
+    max-width: 100%;
+  }
+  
+  .filter-dropdown select:focus {
+    outline: none;
+    border-color: #6b7280;
+  }
+  
+  .dropdown-arrow {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #6b7280;
+    font-size: 0.6rem;
+  }
+  
+  .notes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    align-items: start; 
+  }
+  
+  
+  @media (max-width: 1024px) {
+    .garden-layout {
+      gap: 2rem;
+    }
+    
+    .notes-list {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .garden-layout {
+      grid-template-columns: 1fr;
+    }
+    
+    .notes-list {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 2rem 1rem;
+    }
+    
+    .garden-layout {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .garden-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .garden-description {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+    
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .notes-list {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      margin-bottom: 3rem;
+    }
+    
+    .filter-dropdown select {
+      font-size: 0.75rem;
+      padding: 0.35rem 1.75rem 0.35rem 0.65rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      padding: 1.5rem 0.9rem;
+    }
+
+    .garden-intro {
+      margin-top: 0.8rem;
+      margin-bottom: 0.8rem;
+      border-bottom: none;
+      width: 100%;
+    }
+    
+    .garden-title {
+      font-size: 1.75rem;
+    }
+    
+    .garden-description {
+      font-size: 0.9rem;
+    }
+    
+    .filter-controls {
+      width: 100%;
+      gap: 0.5rem;
+    }
+    
+    .filter-dropdown {
+      flex: 1;
+    }
+    
+    .filter-dropdown select {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const topicFilters = document.querySelectorAll('.topic-filter');
+    const noteCards = document.querySelectorAll('.garden-note-card');
+    const dateFilter = document.getElementById('date-filter');
+    const growthFilter = document.getElementById('growth-filter');
+    
+    let currentTopicFilter = 'all';
+    
+    if (dateFilter) {
+      dateFilter.addEventListener('change', () => {
+        sortNotes((dateFilter as HTMLSelectElement).value);
+      });
+    }
+    
+    if (growthFilter) {
+      growthFilter.addEventListener('change', () => {
+        filterByGrowthStage((growthFilter as HTMLSelectElement).value);
+      });
+    }
+    
+    topicFilters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        const selectedTopic = filter.getAttribute('data-topic') || 'all';
+        
+        if (currentTopicFilter === selectedTopic) {
+          currentTopicFilter = 'all';
+          topicFilters.forEach(f => f.classList.remove('active'));
+        } else {
+          topicFilters.forEach(f => f.classList.remove('active'));
+          filter.classList.add('active');
+          currentTopicFilter = selectedTopic;
+        }
+        
+        filterByTopic(currentTopicFilter);
+      });
+    });
+    
+    function sortNotes(sortOrder: string) {
+      const notesContainer = document.querySelector('.notes-list');
+      if (!notesContainer) return;
+      
+      const notesArray = Array.from(noteCards);
+      
+      notesArray.sort((a, b) => {
+        const dateA = new Date((a as HTMLElement).dataset.date || 0).getTime();
+        const dateB = new Date((b as HTMLElement).dataset.date || 0).getTime();
+        
+        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+      });
+      
+      notesArray.forEach(note => {
+        notesContainer.appendChild(note);
+      });
+    }
+    
+    function filterByGrowthStage(growthStage: string) {
+      noteCards.forEach(card => {
+        const cardGrowthStage = (card as HTMLElement).dataset.growthStage?.toLowerCase();
+        
+        if (growthStage === 'all' || cardGrowthStage === growthStage) {
+          (card as HTMLElement).style.display = 'block';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    }
+    
+    function filterByTopic(topic: string) {
+      noteCards.forEach(card => {
+        const cardTopics = (card as HTMLElement).dataset.topics?.split(',') || [];
+        
+        if (topic === 'all' || cardTopics.includes(topic)) {
+          (card as HTMLElement).style.display = 'block';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    }
+    
+    if (dateFilter) {
+      sortNotes((dateFilter as HTMLSelectElement).value);
+    }
+  });
+</script>

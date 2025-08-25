@@ -1,0 +1,86 @@
+---
+/*Outbound links - Notes*/
+interface Link {
+  title: string;
+  slug: string;
+  growthStage: 'seedling' | 'budding' | 'evergreen';
+}
+
+interface Props {
+  links: Link[];
+}
+
+import GrowthIcon from './GrowthIcon.astro';
+const { links } = Astro.props;
+
+const outboundLinks = links || [];
+---
+
+<div class="outbound-links">
+  <h3>Links to</h3>
+  
+  {outboundLinks.length === 0 ? (
+    <p class="no-links">This note doesn't link to any other notes yet.</p>
+  ) : (
+    <ul>
+      {outboundLinks.map(link => (
+        <li>
+          <a href={`/notes/${link.slug}`} class="outbound-link">
+            <span class="growth-stage">
+              <GrowthIcon growthStage={link.growthStage} />
+            </span>
+            <span class="title">{link.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
+<style>
+  .outbound-links {
+    margin-top: var(--space-l);
+    padding: var(--space-m);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-m);
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-s);
+    color: var(--color-text);
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    margin-bottom: var(--space-xs);
+  }
+  
+  .outbound-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: color 0.2s ease;
+  }
+  
+  .outbound-link:hover {
+    color: var(--color-accent);
+  }
+  
+  .growth-stage {
+    display: flex;
+    align-items: center;
+  }
+  
+  .no-links {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+</style>

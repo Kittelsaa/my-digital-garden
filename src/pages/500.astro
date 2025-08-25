@@ -1,0 +1,105 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageWrapper from "../components/layouts/PageWrapper.astro";
+
+const { error } = Astro.props;
+const errorType = Astro.url.searchParams.get('error') || 'unknown';
+---
+
+<Layout title="500 - Server Error | KTTLSAA">
+  <PageWrapper>
+    <div class="error-container">
+      <h1>500</h1>
+      <h2>Server Error</h2>
+      
+      {errorType === 'recursion-limit-exceeded' ? (
+        <div>
+          <p>We detected a circular reference in the content. This usually happens when notes reference each other in a loop.</p>
+          <p>Try accessing a different note or check your wiki links for circular references.</p>
+        </div>
+      ) : (
+        <p>Something went wrong on our end. Please try again later.</p>
+      )}
+      
+      <div class="actions">
+        <a href="/" class="button primary">Return Home</a>
+        <a href="/garden" class="button secondary">Explore the Garden</a>
+      </div>
+      
+      {import.meta.env.DEV && error && (
+        <div class="dev-error">
+          <h3>Developer Information:</h3>
+          <pre>{error.message}</pre>
+          <pre>{error.stack}</pre>
+        </div>
+      )}
+    </div>
+  </PageWrapper>
+</Layout>
+
+<style>
+  .error-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 6rem;
+    margin: 0;
+    color: var(--color-primary);
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  
+  .primary {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  
+  .secondary {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
+  }
+  
+  .dev-error {
+    margin-top: 3rem;
+    text-align: left;
+    padding: 1rem;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    overflow: auto;
+  }
+  
+  .dev-error pre {
+    white-space: pre-wrap;
+    font-size: 0.9rem;
+  }
+</style>
+

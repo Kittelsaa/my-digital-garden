@@ -1,0 +1,234 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import NotesList from "../../components/NotesList.astro";
+import { getCollection } from "astro:content";
+import "../../styles/note-page.css";
+
+const allNotes = await getCollection("notes");
+
+const sortedNotes = allNotes.sort((a, b) => {
+  const dateA = new Date(a.data.startDate || a.data.updated || 0);
+  const dateB = new Date(b.data.startDate || b.data.updated || 0);
+  return dateB.getTime() - dateA.getTime();
+});
+
+const allTopics = [...new Set(allNotes.flatMap(note => note.data.topics || []))].sort();
+
+const allGrowthStages = [...new Set(allNotes.map(note => note.data.growthStage))].sort();
+
+const allNoteTypes = [...new Set(allNotes.map(note => note.data.type || 'note'))].sort();
+---
+
+<Layout title="Digital Garden Notes">
+  <div class="notes-container">
+    <header class="notes-header">
+      <h1>NOTES</h1>
+      
+      <div class="filters">
+        <div class="filter-group">
+          <select id="sort-filter" class="filter-select">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="alphabetical">Alphabetical</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <select id="type-filter" class="filter-select">
+            <option value="all">All Types</option>
+            {allNoteTypes.map(type => (
+              <option value={type.toLowerCase()}>{type.charAt(0).toUpperCase() + type.slice(1)}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <select id="growth-filter" class="filter-select">
+            <option value="all">All Growth Stages</option>
+            {allGrowthStages.map(stage => (
+              <option value={stage.toLowerCase()}>{stage}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <select id="topic-filter" class="filter-select">
+            <option value="all">All Topics</option>
+            {allTopics.map(topic => (
+              <option value={topic.toLowerCase()}>{topic}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+    </header>
+    
+    <div id="notes-list">
+      <NotesList notes={sortedNotes} />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .notes-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    background-color: transparent !important;
+  }
+  
+  .notes-header {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  
+  .notes-header h1 {
+    font-size: 1.1rem;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight: 600;
+    color: #1f2937;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .filter-group {
+    position: relative;
+  }
+  
+  .filter-group::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 0.7rem;
+    color: #6b7280;
+  }
+  
+  .filter-select {
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0 !important;
+    background-color: white;
+    font-size: 0.875rem;
+    color: #4b5563;
+    min-width: 150px;
+    appearance: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  
+  .filter-select:focus {
+    outline: none;
+    border-color: #b91c1c;
+  }
+  
+  @media (max-width: 768px) {
+    .notes-container {
+      padding: 1.5rem 1rem;
+    }
+    
+    .notes-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .filters {
+      width: 100%;
+    }
+    
+    .filter-group {
+      flex: 1;
+      min-width: 120px;
+    }
+    
+    .filter-select {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const sortFilter = document.getElementById('sort-filter');
+  const growthFilter = document.getElementById('growth-filter');
+  const topicFilter = document.getElementById('topic-filter');
+  const typeFilter = document.getElementById('type-filter');
+  const notesList = document.getElementById('notes-list');
+  
+  sortFilter.addEventListener('change', updateNotes);
+  growthFilter.addEventListener('change', updateNotes);
+  topicFilter.addEventListener('change', updateNotes);
+  typeFilter.addEventListener('change', updateNotes);
+  
+  function updateNotes() {
+    const sortValue = sortFilter.value;
+    const growthValue = growthFilter.value.toLowerCase();
+    const topicValue = topicFilter.value.toLowerCase();
+    const typeValue = typeFilter.value.toLowerCase();
+    
+    const noteItems = document.querySelectorAll('.note-item');
+    
+    noteItems.forEach(note => {
+      let showNote = true;
+      
+      if (growthValue !== 'all') {
+        const noteGrowthStage = note.querySelector('.note-status')?.textContent?.toLowerCase();
+        if (noteGrowthStage !== growthValue) {
+          showNote = false;
+        }
+      }
+      
+      if (topicValue !== 'all' && showNote) {
+        const noteTitle = note.querySelector('.note-title')?.textContent?.toLowerCase() || '';
+        if (!noteTitle.includes(topicValue)) {
+          showNote = false;
+        }
+      }
+      
+      if (typeValue !== 'all' && showNote) {
+        const noteType = note.dataset.type?.toLowerCase() || 'note';
+        if (noteType !== typeValue) {
+          showNote = false;
+        }
+      }
+      
+      note.style.display = showNote ? 'grid' : 'none';
+    });
+    
+    if (sortValue !== 'newest') {
+      const notesContainer = notesList.querySelector('.notes-list-container');
+      const noteItemsArray = Array.from(noteItems).filter(note => note.style.display !== 'none');
+      
+      if (sortValue === 'oldest') {
+        noteItemsArray.sort((a, b) => {
+          const dateA = new Date(a.querySelector('.note-date')?.textContent || '');
+          const dateB = new Date(b.querySelector('.note-date')?.textContent || '');
+          return dateA - dateB;
+        });
+      } else if (sortValue === 'alphabetical') {
+        noteItemsArray.sort((a, b) => {
+          const titleA = a.querySelector('.note-title')?.textContent || '';
+          const titleB = b.querySelector('.note-title')?.textContent || '';
+          return titleA.localeCompare(titleB);
+        });
+      }
+      
+      noteItemsArray.forEach(note => {
+        notesContainer.appendChild(note);
+      });
+    }
+  }
+</script>
+

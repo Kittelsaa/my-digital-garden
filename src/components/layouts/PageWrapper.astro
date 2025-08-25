@@ -1,0 +1,32 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["page-wrapper", className]}>
+  <slot />
+</div>
+
+<style>
+  .page-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-m);
+  }
+  
+  @media (max-width: 768px) {
+    .page-wrapper {
+      padding: var(--space-l) var(--space-s);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .page-wrapper {
+      padding: var(--space-m) var(--space-xs);
+    }
+  }
+</style>

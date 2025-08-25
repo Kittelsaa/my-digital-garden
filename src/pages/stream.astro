@@ -1,0 +1,389 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageWrapper from "../components/layouts/PageWrapper.astro";
+import "../styles/about.css";
+
+const streamItems = [
+  {
+    title: "A Litany for Survival The Life and Work of Audre Lorde",
+    author: "Ada Gay Griffin",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086717/audrelorde_tqdd5v.png",
+    link: "https://en.wikipedia.org/wiki/Audre_Lorde"
+  },
+  {
+    title: "The Future of Information. Ideas, Connections, and the Gods of Electronic Literature",
+    author: "Theodor Holm Nelson",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088624/tednelson_m2whhj.png",
+    link: "https://archive.org/details/futureofinformat00theo/page/n7/mode/2up"
+  },
+  {
+    title: "Two Bits: The Cultural Significance of Free Software",
+    author: "Christopher M. Kelty",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088630/twobits_zt6ewq.png",
+    link: "https://www.librarything.com/work/5642301#"
+  },
+  {
+    title: "Gary Younge",
+    author: "Columnist",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086727/garyyounge_jbkg2p.png",
+    link: "https://en.wikipedia.org/wiki/Gary_Younge"
+  },
+  {
+    title: "The Four Agreements: A Practical Guide to Personal Freedom",
+    author: "Miguel Ruiz",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088626/miguelruiz_lfqvgx.png",
+    link: "https://www.librarything.com/work/3221/t/The-Four-Agreements-A-Practical-Guide-to-Personal-Freedom#"
+  },
+  {
+    title: "Nina Simone",
+    author: "Singer/Activist",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086717/ninasimone_isgi1p.png",
+    link: "https://en.wikipedia.org/wiki/Nina_Simone"
+  },
+  {
+    title: "Kirikou Et La Sorcière",
+    author: "Michel Ocelot",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086717/kirikou_tpmgl5.png",
+    link: "https://en.wikipedia.org/wiki/Kirikou_and_the_Sorceress"
+  },
+  {
+    title: "Invisible Women: Data Bias in a World Designed for Men",
+    author: "Caroline Criado Perez",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088626/invisiblewomen_hepfmd.png",
+    link: "https://www.librarything.com/work/22617600/t/Invisible-Women-Data-Bias-in-a-World-Designed-for-Men#"
+  },
+  {
+    title: "Disability Visibility: First-Person Stories from the Twenty-First Century",
+    author: "Alice Wong",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086339/disabilityvisibility_aj7ohh.png",
+    link: "https://www.librarything.com/work/24434060/t/Disability-Visibility-First-Person-Stories-from-the-Twenty-First-Century"
+  },
+  {
+    title: "Porco Rosso",
+    author: "Hayao Miyazaki",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086721/porco_rrensy.png",
+    link: "https://en.wikipedia.org/wiki/Porco_Rosso"
+  },
+  {
+    title: "What happened to “African socialism”?",
+    author: "Chris Talbot",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086711/africansc_rqhxrw.png",
+    link: "https://www.wsws.org/en/articles/2005/05/exch-m19.html"
+  },
+  {
+    title: "Kentaro Miura",
+    author: "Mangaka",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088626/kentaromiura_lik2ho.png",
+    link: "https://en.wikipedia.org/wiki/Kentaro_Miura"
+  },
+  {
+    title: "Anthony Bourdain",
+    author: "Chef/Author",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086717/anthonybourdain_ptxc5l.png",
+    link: "https://en.wikipedia.org/wiki/Anthony_Bourdain"
+  },
+  {
+    title: "Octavia E. Butler",
+    author: "Writer",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086722/octaviaebutler_nvzkgn.png",
+    link: "https://en.wikipedia.org/wiki/Octavia_E._Butler"
+  },
+  {
+    title: "Margaret O'Mara",
+    author: "Historian",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088649/margaretomara_i2xocx.png",
+    link: "https://en.wikipedia.org/wiki/Margaret_O'Mara"
+  },
+  {
+    title: "Shea Couleé",
+    author: "Drag Queen",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750085792/Screenshot_2025-06-16_165450_kn81nm.png",
+    link: "https://en.wikipedia.org/wiki/Shea_Coule%C3%A9"
+  },
+  {
+    title: "Invisible Users: Youth in the Internet Cafés of Urban Ghana",
+    author:"Jenna Burrell",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088649/invisibleusers_ddktcx.png",
+    link: "https://www.librarything.com/work/12959036/t/Invisible-Users-Youth-in-the-Internet-Caf%C3%A9s-of-Urban-Ghana-Acting-with-Technology#"
+  },
+  {
+    title: "We Real Cool: Black Men and Masculinity",
+    author: "bell hooks",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088647/werealcool_bf1tab.png",
+    link: "https://www.librarything.com/work/22994/t/We-Real-Cool-Black-Men-and-Masculinity#"
+  },
+  {
+    title: "Border and Rule: Global Migration, Capitalism, and the Rise of Racist Nationalism",
+    author:"Harsha Walia",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086267/borderandrule_s3gyvn.png",
+    link: "https://www.librarything.com/work/26022917/t/Border-and-Rule-Global-Migration-Capitalism-and-the-Rise-of-Racist-Nationalism"
+  },
+  {
+    title: "How Europe Underdeveloped Africa",
+    author: "Walter Rodney",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088628/walterrodney_n1dlw9.png",
+    link: "https://www.librarything.com/work/173407/t/How-Europe-Underdeveloped-Africa"
+  },
+  {
+    title: "Surveillance, the Cold War, and Latin American Literature",
+    author: "Daniel Noemi Voionmaa",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088649/danielnoemivoionmaa_wvzogh.png",
+    link: "https://www.librarything.com/work/30551157/t/Surveillance-the-Cold-War-and-Latin-American-Literature"
+  },
+  {
+    title: "Angela Davis & Charlene Mitchell",
+    author: "Activist/Politician",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086713/angela-charlene_mmbgix.png",
+    link: "https://en.wikipedia.org/wiki/Angela_Davis"
+  },
+  {
+    title: "Cutting School: The Segrenomics of American Education",
+    author:" Noliwe Rooks",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086070/cuttingschool_vj4iev.png",
+    link: "https://www.librarything.com/work/20883300/t/Cutting-School-The-Segrenomics-of-American-Education"
+  },
+  {
+    title: "John Cassavetes",
+    author: "Filmmaker",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086523/johncassavetes_zsykck.png",
+    link: "https://en.wikipedia.org/wiki/John_Cassavetes"
+  },
+  {
+    title: "Reighan Gillam",
+    author: "Academic/Researcher",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086193/reighangillam_vdywyd.png",
+    link: "https://faculty-directory.dartmouth.edu/reighan-gillam"
+  },
+  {
+    title: "Kelela",
+    author: "Singer",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750086721/kelela_pdqdbb.png",
+    link: "https://en.wikipedia.org/wiki/Kelela"
+  },
+  {
+    title: "David Lynch",
+    author: "Filmmaker",
+    image: "https://res.cloudinary.com/djjc0kf4h/image/upload/v1750088627/davidlynch_t3ybzk.png",
+    link: "https://en.wikipedia.org/wiki/David_Lynch"
+  },
+];
+---
+
+<Layout title="Stream - KTTLSAA">
+  <PageWrapper>
+    <div class="stream-container">
+      <div class="stream-intro">
+        <h1 class="stream-title">Stream</h1>
+        <p class="stream-description">
+          The stuff I geek out about; a list of books, different media & the people whose work I admire ★
+        </p>
+      </div>
+
+      <div class="stream-grid">
+        {streamItems.map((item) => (
+          <a href={item.link} class="stream-item" target="_blank" rel="noopener noreferrer">
+            <div class="item-image-container">
+              <img src={item.image} alt={item.title} class="item-image" />
+            </div>
+            
+            <div class="item-content">
+              <h2 class="item-title">{item.title}</h2>
+              
+              <div class="item-meta">
+                <p>{item.author}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </PageWrapper>
+</Layout>
+
+<style>
+  .stream-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem 1.5rem ;
+    overflow-x: hidden;
+  }
+  
+  .stream-intro {
+    margin-bottom: 3.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1.5rem;
+  }
+  
+  .stream-title {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 1.25rem;
+  }
+  
+  .stream-description {
+    font-size: 1rem;
+    color: #6b7280;
+    max-width: 800px;
+    line-height: 1.6;
+    margin: 0 0 1.5rem;
+  }
+  
+  .stream-link {
+    color: #1f2937;
+    text-decoration: none;
+    border-bottom: 1px dotted #1f2937;
+    transition: all 0.2s ease;
+  }
+  
+  .stream-link:hover {
+    color: #ff8c00;
+    border-bottom: 1px solid #ff8c00;
+  }
+
+  .stream-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+
+  .stream-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF8F4;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+  }
+  
+  .stream-item:hover {
+    background-color: #FFF2EB;
+  }
+
+  .item-image-container {
+    width: 100%;
+    padding-top: 100%; 
+    position: relative;
+    overflow: hidden;
+    background-color: #f3f4f6;
+  }
+
+  .item-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+  }
+
+  .item-content {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.4rem 0;
+    color: #1f2937;
+    line-height: 1.4;
+  }
+  
+  .stream-item:hover .item-title {
+    color: #1f2937;
+  }
+
+  .item-meta p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6b7280;
+    line-height: 1;
+  }
+
+  @media (max-width: 1024px) {
+    .stream-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .item-title {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stream-container {
+      padding: 2rem 1rem;
+    }
+    
+    .stream-title {
+      font-size: 2rem;
+    }
+    
+    .stream-description {
+      font-size: 1rem;
+    }
+    
+    .stream-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+    
+    .item-content {
+      padding: 1rem;
+    }
+    
+    .item-title {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .item-meta p {
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stream-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .item-image-container {
+      padding-top: 100%; 
+    }
+    
+    .item-content {
+      padding: 0.75rem;
+    }
+    
+    .item-title {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+    }
+    
+    .item-meta p {
+      font-size: 0.75rem;
+      line-height: 1.3;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .stream-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .item-image-container {
+      padding-top: 66.67%; 
+    }
+  }
+</style>

@@ -1,0 +1,157 @@
+<div class="about-me"></div>
+  <div class="social-section">
+    <h3 class="section-title">SOCIAL</h3>
+    <ul class="social-list">
+      <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=kttlsaa@gmail.com">Mail</a></li>
+      <li><a href="https://www.linkedin.com/in/kittelsaa-nyampundu-467858253/">LinkedIn</a></li>
+      <li><a href="https://bsky.app/profile/kittelsaa.bsky.social">Bluesky</a></li>
+      <li><a href="https://www.instagram.com/kttlsaa/">Instagram</a></li>  
+      <li><a href="https://indieweb.social/@kttlsaa">Indieweb</a></li>  
+      <li><a href="https://github.com/Kittelsaa">Github</a></li>  
+    </ul>
+  </div>
+  
+  <div class="philosophy-section">
+    <h3 class="section-title">MORE ABOUT ME</h3>
+    <p>
+      I'm a Software Engineer & Digital Anthropologist, think of it as exploring 
+      the human side of the digital world; how we build & use software. My work exists
+      at the intersection of building digital systems & understanding their profound 
+      cultural impact. 
+    </p>
+    <p class="philosophy-paragraph">
+      I approach software not as lines of code but as cultural artifacts; each digital 
+      product a reflection of our values, biases & aspirations.
+    </p>
+    <p>
+      I was born & raised in Kigali, Rwanda & when I'm not immersed in code, 
+      you'll find me writing a lot or deep in conversations around pop culture, the tech 
+      industry, history & the future. If you're interested in the intersection of code & 
+      culture, digital spaces or building technology with purpose, I'd love to exchange ideas.
+    </p>
+  </div>
+</div>
+
+<style>
+  .about-me {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+    max-width: 100%; 
+    margin: 0;
+    padding-bottom: var(--space-4xl);
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-s);
+    color: #6b7280;
+    font-weight: 600;
+    text-align: left;
+  }
+  
+  .social-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-m);
+  }
+  
+  .social-list li {
+    margin-right: var(--space-m);
+  }
+  
+  .social-list a {
+    color: #1f2937;
+    text-decoration: none;
+    border-bottom: 1px dotted #1f2937;
+    transition: all 0.2s ease;
+  }
+  
+  .social-list a:hover {
+    color: #ff8c00;
+    border-bottom: 1px solid #ff8c00;
+  }
+  
+  .philosophy-paragraph {
+    font-weight: 500;
+    font-style: italic;
+    color: #ff8c00;
+    max-width: 100%; 
+  }
+  
+  p {
+    margin-bottom: var(--space-m);
+    line-height: 1.8; 
+    font-size: 1.05rem;
+    max-width: 100%; 
+  }
+  
+  .philosophy-section {
+    margin-top: 2.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .about-me {
+      gap: var(--space-m);
+      padding-bottom: var(--space-2xl);
+    }
+    
+    p {
+      font-size: 1rem;
+      margin-bottom: var(--space-s);
+    }
+    
+    .section-title {
+      font-size: 1rem;
+    }
+    
+    .social-list {
+      gap: var(--space-s);
+    }
+    
+    .social-list li {
+      margin-right: var(--space-s);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .about-me {
+      gap: var(--space-s);
+    }
+    
+    p {
+      font-size: 0.95rem;
+    }
+    
+    .section-title {
+      font-size: 0.9rem;
+    }
+    
+    .social-list {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    
+    .social-list li {
+      margin-right: 0;
+    }
+  }
+  .contact-section, .philosophy-section {
+    margin-bottom: var(--space-xl, 0rem);
+  }
+  .social-section {
+    margin-bottom: var(--space-xl, 0.8rem);
+  }
+  
+  p {
+    margin-bottom: var(--space-m, 1.5rem);
+  }
+  
+  .section-title {
+    margin-bottom: var(--space-m, 1.5rem);
+  }
+</style>

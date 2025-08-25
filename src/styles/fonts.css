@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  --font-heading: 'Averia Serif Libre', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html, body {
+  background-color: #FFF8F4;
+}
+
+html body h1, 
+html body h2, 
+html body h3, 
+html body h4, 
+html body h5, 
+html body .title, 
+html body .heading, 
+html body [class*="title"], 
+html body [class*="heading"] {
+  font-family: var(--font-heading) !important;
+}
+
+html body p,
+html body a,
+html body span,
+html body div,
+html body li,
+html body input,
+html body textarea,
+html body label,
+html body blockquote,
+html body table,
+html body pre,
+html body code {
+  font-family: var(--font-body) !important;
+  cursor: default !important;
+}
+
+html body header h1, 
+html body header h2, 
+html body header h3,
+html body main h1, 
+html body main h2, 
+html body main h3,
+html body article h1, 
+html body article h2, 
+html body article h3,
+html body section h1, 
+html body section h2, 
+html body section h3,
+html body div h1, 
+html body div h2, 
+html body div h3 {
+  font-family: var(--font-heading) !important;
+}
+
+::selection {
+  background-color: #ff8b4d;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #ff8b4d;
+  color: #ffffff;
+}

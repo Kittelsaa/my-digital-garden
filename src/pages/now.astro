@@ -1,0 +1,120 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageWrapper from "../components/layouts/PageWrapper.astro";
+import "../styles/about.css";
+---
+
+<Layout title="Now - KTTLSAA" description="Current projects & interests I'm exploring right now" type="website">
+  <PageWrapper>
+    <div class="about-container">
+      <div class="about-content">
+        <h1 class="about-title">Now: June 27nd 2025</h1>
+        
+        <div class="about-section">
+          <p>
+            This is an incomplete and continuously changing list of the subjects & projects I currently find interesting and want to explore more. It isn't a list of everything I'm doing but rather a snapshot of where my energy and curiosity are primarily directed <em>right now</em>. Here is a site on <a href="https://nownownow.com/about" target="_blank" rel="noopener">Now Pages</a>.
+          </p>
+          
+          <div class="about-quote">
+            <p>
+              Right now, I’m building a notes taking app. If you share a fascination with knowledge systems and diverse notes-taking practices, I'd genuinely appreciate you <a href="/about">getting in touch</a>.
+            </p>
+            <p>
+              Developing a tech literacy guide for non-technical people like my parents or anyone really.
+            </p>
+            <p>
+              I've been using Vim again & I'm reading ¨Surveillance, the Cold War, and Latin American Literature¨ by Daniel Noemi Voionmaa. 
+            </p>
+            <p>
+              Favorite songs atm are: Be Ever Wonderful by Earth, Wind & Fire, Strawberry Swing by Coldplay and Amaarae by S.M.O.
+            </p>
+          </div>
+
+          
+          <p class="last-updated">
+            Last updated: June 27nd 2025
+          </p>
+        </div>
+      </div>
+    </div>
+  </PageWrapper>
+</Layout>
+
+<style>
+  .about-title {
+    font-size: 2rem;
+    margin-bottom: var(--space-s, 1rem);
+    font-family: "Averia Serif Libre", serif;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.2;
+    text-align: left;
+  }
+  
+  .about-section {
+    margin-bottom: var(--space-xl, 1.5rem);
+  }
+  
+  .about-section p {
+    margin-bottom: var(--space-m, 1.5rem);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #333;
+    max-width: 100%;
+  }
+  
+  .about-section a {
+    color: #1f2937;
+    text-decoration: none;
+    border-bottom: 1px dotted #1f2937;
+    transition: all 0.2s ease;
+  }
+  
+  .about-section a:hover {
+    color: #ff8c00;
+    border-bottom: 1px solid #ff8c00;
+  }
+  
+  .about-quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #4b5563;
+    padding: var(--space-m, 1.5rem);
+    border-left: 3px solid #ff8c00;
+    background-color: rgba(0, 0, 0, 0.02);
+    margin: var(--space-l, 2rem) 0;
+  }
+  
+  .about-quote p {
+    margin: 0;
+    font-style: italic;
+  }
+  
+  .last-updated {
+    font-size: 0.9rem;
+    color: #6b7280;
+    font-style: italic;
+    text-align: right;
+    margin-top: 3rem !important;
+  }
+  
+  @media (max-width: 768px) {
+    .about-container {
+      padding: var(--space-l, 2rem) var(--space-s, 1rem);
+    }
+    
+    .about-title {
+      font-size: 2rem;
+    }
+    
+    .about-section p {
+      font-size: 1rem;
+    }
+    
+    .about-quote {
+      font-size: 1rem;
+      padding: var(--space-s, 1rem);
+    }
+  }
+</style>
+
